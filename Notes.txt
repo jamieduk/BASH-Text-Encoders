@@ -3,6 +3,9 @@ Convert text string to and back By J~Net
 
 jnet.djaufiefexx6vsivc7auwithqdcbmjoftspe7kleg3ivuauk6yrmkkyd.onion
 
+https://github.com/jamieduk/BASH-Text-Encoders
+
+https://jnet.forumotion.com
 
 
 Text to Binary
@@ -25,5 +28,4 @@ Text to Base64
 Base64 to Text
 
 ./Base64-to-Text.sh "VmlzaXQgam5ldC5kamF1ZmllZmV4eDZ2c2l2YzdhdXdpdGhxZGNibWpvZnRzcGU3a2xlZzNpdnVhdWs2eXJta2t5ZC5vbmlvbg=="
-
 
