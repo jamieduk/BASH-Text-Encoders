@@ -11,11 +11,47 @@ https://jnet.forumotion.com
 Text to Binary
 
  ./Text-to-Binary.sh "visit jnet.djaufiefexx6vsivc7auwithqdcbmjoftspe7kleg3ivuauk6yrmkkyd.onion"
+ 
+
+bashrc / zshrc function
+
+
+function txt2bin(){
+input="$1"
+if [ -z "$input" ]; then
+  read -p "Enter text to convert to binary: " input
+fi
+# Convert each character of the string to binary
+echo -n "$input" | perl -lpe '$_=unpack"B*"'
+}
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Binary to Text
 
 ./Binary-to-Text.sh "01110110011010010111001101101001011101000010000001101010011011100110010101110100001011100110010001101010011000010111010101100110011010010110010101100110011001010111100001111000001101100111011001110011011010010111011001100011001101110110000101110101011101110110100101110100011010000111000101100100011000110110001001101101011010100110111101100110011101000111001101110000011001010011011101101011011011000110010101100111001100110110100101110110011101010110000101110101011010110011011001111001011100100110110101101011011010110111100101100100001011100110111101101110011010010110111101101110"
+
+
+bashrc / zshrc function
+
+
+function bin2txt() {
+  input="$1"
+  if [ -z "$input" ]; then
+    read -p "Enter binary string to convert to text: " input
+  fi
+
+  # Validate input: Ensure only binary characters and length divisible by 8
+  if [[ ! "$input" =~ ^[01]+$ ]] || (( ${#input} % 8 != 0 )); then
+    echo "Error: Input must be a binary string with a length divisible by 8."
+    return 1  # Use 'return' instead of 'exit'
+  fi
+
+  # Convert binary to text
+  echo "$input" | perl -lpe '$_=pack"B*",$_'
+}
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,9 +59,41 @@ Text to Base64
 
 ./Text-to-Base64.sh "Visit jnet.djaufiefexx6vsivc7auwithqdcbmjoftspe7kleg3ivuauk6yrmkkyd.onion"
 
+
+bashrc / zshrc function
+
+
+function txt2b64(){
+input="$1"
+if [ -z "$input" ]; then
+  read -p "Enter text to encode in Base64: " input
+fi
+echo -n "$input" | base64
+echo ""
+}
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Base64 to Text
 
 ./Base64-to-Text.sh "VmlzaXQgam5ldC5kamF1ZmllZmV4eDZ2c2l2YzdhdXdpdGhxZGNibWpvZnRzcGU3a2xlZzNpdnVhdWs2eXJta2t5ZC5vbmlvbg=="
+
+
+bashrc / zshrc function
+
+
+function b642txt(){
+input="$1"
+if [ -z "$input" ]; then
+  read -p "Enter Base64 string to decode: " input
+fi
+# Decode Base64 string and handle errors gracefully
+if echo "$input" | base64 -d &>/dev/null; then
+  echo "$input" | base64 -d
+  echo ""
+else
+  echo "Error: Input is not a valid Base64 string."
+fi
+}
+
 
